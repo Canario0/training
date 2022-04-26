@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, Link, Paper, Tooltip } from "@mui/material";
-import { Character } from "../../entities/characters";
-import styled from "@emotion/styled";
+import { Box, Link, Paper } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import styled from "@emotion/styled";
+import { Character } from "../../entities/characters";
 
 const HoverPaper = styled(Paper)`
   &:hover {
@@ -19,10 +19,8 @@ const Avatar = styled.img`
 `;
 
 const TextBox = styled(Box)`
-  overflow: hidden;
-  text-overflow: ellipsis;
   max-width: 200px;
-  white-space: nowrap;
+  max-height: 100px;
 `;
 
 interface CharacterGridItemProps {
@@ -47,7 +45,7 @@ export default function CharacterGridItem({
             <Avatar src={character.image} loading="lazy" />
           </Box>
           <Box marginLeft="12px" height="100px" flexGrow="1">
-            <TextBox fontSize="16px" fontWeight="bold">
+            <TextBox fontSize="14px" fontWeight="bold">
               {character.name}
             </TextBox>
             <TextBox fontSize="12px">{character.status}</TextBox>

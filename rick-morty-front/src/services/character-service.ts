@@ -5,13 +5,10 @@ const DOMAIN = "https://rickandmortyapi.com/api";
 
 /* eslint-disable import/prefer-default-export */
 export async function getAllCharacters(
-  page?: number
+  page?: number,
+  name?: string
 ): Promise<PaginatedCharacters> {
-  const queryParams = new URLSearchParams();
-  if (page) {
-    queryParams.append("page", page.toString());
-  }
   return axios
-    .get(`${DOMAIN}/character`, { params: queryParams })
+    .get(`${DOMAIN}/character`, { params: { page, name } })
     .then((response) => response.data);
 }
