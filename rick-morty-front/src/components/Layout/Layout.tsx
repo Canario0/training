@@ -1,9 +1,9 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import HeaderBar from "./HeaderBar";
 
-export default function Layout(): ReactElement {
+export default function Layout() {
   return (
     <Box height="100%" width="100%">
       <HeaderBar />

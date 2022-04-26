@@ -9,15 +9,20 @@ const HoverPaper = styled(Paper)`
     box-shadow: rgb(27 27 27 / 10%) 0px 8px 16px,
       rgb(27 27 27 / 6%) 0px 5px 16px, rgb(27 27 27 / 4%) 0px 0px 4px;
   }
-  max-width: 200px;
-  min-height: 250px;
-  max-height: 250px;
+  width: 300px;
+  height: 100px;
 `;
 
 const Avatar = styled.img`
-  min-width: 200px;
-  max-width: 200px;
+  height: 100px;
   aspect-ratio: 1 / 1;
+`;
+
+const TextBox = styled(Box)`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  white-space: nowrap;
 `;
 
 interface CharacterGridItemProps {
@@ -28,28 +33,26 @@ export default function CharacterGridItem({
 }: CharacterGridItemProps) {
   return (
     <Box paddingTop="1rem">
-      <HoverPaper elevation={0}>
+      <HoverPaper elevation={0} variant="outlined">
         <Link
           component={RouterLink}
           to={`/characters/${character.id}`}
           underline="none"
           color="secondary"
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
         >
           <Box>
             <Avatar src={character.image} loading="lazy" />
           </Box>
-          <Tooltip title={character.name}>
-            <Box
-              marginLeft="12px"
-              fontSize="12px"
-              overflow="hidden"
-              textOverflow="ellipsis"
-              maxWidth="200px"
-              whiteSpace="nowrap"
-            >
+          <Box marginLeft="12px" height="100px" flexGrow="1">
+            <TextBox fontSize="16px" fontWeight="bold">
               {character.name}
-            </Box>
-          </Tooltip>
+            </TextBox>
+            <TextBox fontSize="12px">{character.status}</TextBox>
+            <TextBox fontSize="12px">{character.origin.name}</TextBox>
+          </Box>
         </Link>
       </HoverPaper>
     </Box>

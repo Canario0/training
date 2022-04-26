@@ -27,7 +27,7 @@ function App() {
         {/* Not kown pages redirects to home page */}
         <Route
           path="*"
-          element={<Navigate to={"/characters" + location.search} replace />}
+          element={<Navigate to={`/characters${location.search}`} replace />}
         />
       </Routes>
     </ThemeProvider>

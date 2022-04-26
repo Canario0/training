@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from "react";
-import { Box, Container, Grid } from "@mui/material";
-import { Character } from "../../entities/characters";
+import { Box, Container, Grid, Pagination } from "@mui/material";
+import { Character, PaginatedCharacters } from "../../entities/characters";
 import { getAllCharacters } from "../../services/character-service";
 import CharacterGridItem from "./CharaterGridItem";
 
@@ -18,11 +18,15 @@ interface ActionLoading extends ActionBase {
 
 interface ActionDone extends ActionBase {
   type: "done";
+  pageCount: number;
+  currentPage: number;
   characters: Character[];
 }
 
 interface CharacterGridState {
   status: string;
+  pageCount: number;
+  currentPage: number;
   characters: Character[];
 }
 
@@ -30,13 +34,17 @@ function characterGridReducer(
   state: CharacterGridState,
   action: ActionLoading | ActionDone | ActionError
 ): CharacterGridState {
-  const type = action.type;
-  switch (type) {
+  switch (action.type) {
     case "loading":
     case "error":
-      return { status: type, characters: state.characters };
+      return { ...state, status: action.type };
     case "done":
-      return { status: type, characters: action.characters ?? [] };
+      return {
+        status: action.type,
+        characters: action.characters ?? [],
+        pageCount: action.pageCount,
+        currentPage: action.currentPage,
+      };
     default:
       throw new Error("CharacterGrid action type not defined");
   }
@@ -45,17 +53,24 @@ function characterGridReducer(
 export default function CharacterGrid() {
   const [state, dispatch] = useReducer(characterGridReducer, {
     status: "loading",
+    pageCount: 0,
+    currentPage: 1,
     characters: [],
   });
 
   useEffect(() => {
     dispatch({ type: "loading" });
     getAllCharacters()
-      .then((characters: Character[]) =>
-        dispatch({ type: "done", characters: characters })
-      )
+      .then((body: PaginatedCharacters) => {
+        dispatch({
+          type: "done",
+          characters: body.results,
+          pageCount: body.info.count,
+          currentPage: state.currentPage + 1,
+        });
+      })
       .catch(() => dispatch({ type: "error" }));
-  }, []);
+  }, [state.currentPage]);
 
   return (
     <Box
@@ -66,7 +81,8 @@ export default function CharacterGrid() {
       overflow="auto"
     >
       {/* TODO: define search Bar */}
-      <Container>
+      <Pagination count={state.pageCount} variant="outlined" />
+      <Container maxWidth="xl">
         <Grid container justifyContent="center" spacing={1}>
           {state.characters.map((character) => (
             <Grid item key={character.id.toString()} color="secondary.main">
