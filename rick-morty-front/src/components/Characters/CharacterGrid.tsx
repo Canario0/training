@@ -12,8 +12,9 @@ import { PaginatedCharacters } from "../../entities/characters";
 import { getAllCharacters } from "../../services/character-service";
 import CharacterGridItem from "./CharacterGridItem";
 import Spinner from "../Layout/Spinner";
-import { characterGridReducer } from "./CharacterReducer";
+import { characterGridReducer } from "./CharacterGridReducer";
 import SearchBar from "../Layout/SearchBar";
+import NotFound from "../Layout/NotFound";
 
 export default function CharacterGrid() {
   const [state, dispatch] = useReducer(characterGridReducer, {
@@ -60,7 +61,6 @@ export default function CharacterGrid() {
       <SearchBar onChange={handleSearchChange} value={name} />
       {state.status === "loading" && <Spinner />}
       {state.status === "done" && state.characters.length !== 0 && (
-        /* TODO: define search Bar */
         <Container maxWidth="xl" sx={{ flexGrow: 2 }}>
           <Box width="100%" display="flex" justifyContent="flex-end">
             <Pagination
@@ -79,7 +79,9 @@ export default function CharacterGrid() {
           </Grid>
         </Container>
       )}
-      {/* TODO: define error view */}
+      {state.status === "error" && (
+        <NotFound message="Unable to load Characters" />
+      )}
     </Box>
   );
 }
