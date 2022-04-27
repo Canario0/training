@@ -2,7 +2,8 @@ import React from "react";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
-import CharacterGrid from "./components/Characters/CharaterGrid";
+import CharacterGrid from "./components/Characters/CharacterGrid";
+import CharacterDetails from "./components/Characters/CharacterDetails";
 
 const theme = createTheme({
   palette: {
@@ -23,6 +24,10 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/characters" element={<CharacterGrid />} />
+          <Route
+            path="/characters/:characterId"
+            element={<CharacterDetails />}
+          />
         </Route>
         {/* Not kown pages redirects to home page */}
         <Route
