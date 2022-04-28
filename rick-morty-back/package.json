@@ -24,10 +24,13 @@
     "exec": "npm run build && npm start"
   },
   "dependencies": {
-    "express": "^4.18.0"
+    "express": "^4.18.0",
+    "http-status-codes": "^2.2.0",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3",
     "@types/node": "^17.0.29",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
