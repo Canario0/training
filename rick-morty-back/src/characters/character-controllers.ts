@@ -5,8 +5,15 @@ import { CharacterRepository } from "./character-repository";
 
 export function getCharacters(characterRepository: CharacterRepository) {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const character = await characterRepository.getAllCharacters();
-    res.status(httpStatus.OK).send(character);
+    const { name } = req.query;
+    try {
+      const character = await characterRepository.getAllCharacters(
+        name as string
+      );
+      res.status(httpStatus.OK).send(character);
+    } catch (err) {
+      next(new AppError(httpStatus.NOT_FOUND, err.message));
+    }
   };
 }
 
@@ -15,9 +22,13 @@ export function getCharacter(characterRepository: CharacterRepository) {
     const id = Number(req.params.id);
     if (Number.isNaN(id)) {
       next(new AppError(httpStatus.NOT_FOUND, "Hey! You must provide an id"));
-      return;
+    } else {
+      try {
+        const character = await characterRepository.getCharacter(id);
+        res.status(httpStatus.OK).send(character);
+      } catch (err) {
+        next(new AppError(httpStatus.NOT_FOUND, err.message));
+      }
     }
-    const character = await characterRepository.getCharacter(id);
-    res.status(httpStatus.OK).send(character);
   };
 }

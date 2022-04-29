@@ -2,7 +2,7 @@ import { DataSource } from "typeorm";
 import { Character, TypeCharacter } from "./entities/character-entity";
 
 export interface CharacterRepository {
-  getAllCharacters(): Promise<Character[]>;
+  getAllCharacters(name?: string): Promise<Character[]>;
   getCharacter(id: number): Promise<Character>;
 }
 
@@ -13,11 +13,27 @@ export class TypeCharacterRepository implements CharacterRepository {
     this.appDataSource = appDataSource;
   }
 
-  async getAllCharacters(name?: String): Promise<Character[]> {
-    return this.appDataSource.getRepository(TypeCharacter).find();
+  async getAllCharacters(name?: string): Promise<Character[]> {
+    const characters = await this.appDataSource
+      .getRepository(TypeCharacter)
+      .find({
+        where: {
+          name,
+        },
+      });
+    if (!characters.length) {
+      throw new Error("Characters not found");
+    }
+    return characters;
   }
 
   async getCharacter(id: number): Promise<Character> {
-    return this.appDataSource.getRepository(TypeCharacter).findOneBy({ id });
+    const character = await this.appDataSource
+      .getRepository(TypeCharacter)
+      .findOneBy({ id });
+    if (!character) {
+      throw new Error("Character not found");
+    }
+    return character;
   }
 }

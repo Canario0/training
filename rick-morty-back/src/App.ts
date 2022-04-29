@@ -12,5 +12,5 @@ routes.use("/character", characterRouter);
 app.use("/v1", routes);
 
 setUpErrorHandlers(app);
-// Export para testing
+
 export default app;
