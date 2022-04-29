@@ -8,7 +8,7 @@ const routes = express.Router();
 setUpDatabase();
 setupMiddleware(app);
 
-routes.use("/character", characterRouter);
+routes.use("/characters", characterRouter);
 app.use("/v1", routes);
 
 setUpErrorHandlers(app);
