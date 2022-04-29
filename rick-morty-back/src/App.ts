@@ -1,11 +1,16 @@
 import express from "express";
-import Middleware from "./middelware";
+import { setupMiddleware, setUpErrorHandlers } from "./middelware";
 import characterRouter from "./characters/character-routes";
+import setUpDatabase from "./database";
 
 const app = express();
-Middleware.setup(app);
+const routes = express.Router();
+setUpDatabase();
+setupMiddleware(app);
 
-app.use("/character", characterRouter);
+routes.use("/character", characterRouter);
+app.use("/v1", routes);
 
+setUpErrorHandlers(app);
 // Export para testing
 export default app;

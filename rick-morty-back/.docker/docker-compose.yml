@@ -4,7 +4,3 @@ services:
     image: postgres:14.2
     env_file:
       - .env
-    volumes:
-      - db_data:/var/lib/postgresql/data/pgdata
-volumes:
-    db_data:

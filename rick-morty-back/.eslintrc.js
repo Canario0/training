@@ -22,5 +22,8 @@ module.exports = {
     quotes: ["error", "double"],
     "import/extensions": ["error", "never"],
     "prettier/prettier": ["error"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    indent: "off",
   },
 };
