@@ -34,7 +34,8 @@ export class TypeCharacter implements Character {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column() name: string;
+  @Column()
+  name: string;
 
   @Column({
     type: "enum",

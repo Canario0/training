@@ -1,10 +1,5 @@
 import { DataSource } from "typeorm";
-import {
-  Character,
-  CharacterGender,
-  CharacterStatus,
-  TypeCharacter,
-} from "./entities/character-entity";
+import { Character, TypeCharacter } from "./entities/character-entity";
 
 export interface CharacterRepository {
   getAllCharacters(): Promise<Character[]>;

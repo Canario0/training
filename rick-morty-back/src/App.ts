@@ -1,5 +1,5 @@
 import express from "express";
-import { setupMiddleware, setUpErrorHandlers } from "./middelware";
+import { setupMiddleware, setUpErrorHandlers } from "./middleware";
 import characterRouter from "./characters/character-routes";
 import setUpDatabase from "./database";
 
