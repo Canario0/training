@@ -10,7 +10,7 @@ export function getCharacters(characterRepository: CharacterRepository) {
       const character = await characterRepository.getAllCharacters(
         name as string
       );
-      res.status(httpStatus.OK).send(character);
+      res.status(httpStatus.OK).json(character);
     } catch (err) {
       next(new AppError(httpStatus.NOT_FOUND, err.message));
     }
@@ -25,7 +25,7 @@ export function getCharacter(characterRepository: CharacterRepository) {
     } else {
       try {
         const character = await characterRepository.getCharacter(id);
-        res.status(httpStatus.OK).send(character);
+        res.status(httpStatus.OK).json(character);
       } catch (err) {
         next(new AppError(httpStatus.NOT_FOUND, err.message));
       }

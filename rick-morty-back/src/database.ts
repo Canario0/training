@@ -20,6 +20,7 @@ export const dataSource = new DataSource({
 
 export default function setUpDatabase() {
   dataSource.initialize().then(() => {
+    // TODO: extract this part into a initialization script.
     dataSource.getRepository(TypeCharacter).save(characters);
   });
 }
