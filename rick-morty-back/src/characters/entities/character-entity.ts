@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 import { Location, TypeLocation } from "./location-entity";
 import { Origin, TypeOrigin } from "./origin-entity";
 

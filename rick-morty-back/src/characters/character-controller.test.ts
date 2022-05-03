@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import httpStatus from "http-status-codes";
 import { getMockReq, getMockRes } from "@jest-mock/express";
 import { getCharacters } from "./character-controllers";

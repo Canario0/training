@@ -9,10 +9,10 @@ export function setupMiddleware(app: Express) {
 }
 
 export function setUpErrorHandlers(app: Express) {
-  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  app.use((err: Error, _req: Request, _res: Response, next: NextFunction) => {
     handleNotFound(err as AppError, next);
   });
-  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
     handleError(err as AppError, res);
   });
 }

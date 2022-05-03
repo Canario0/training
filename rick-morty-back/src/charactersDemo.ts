@@ -3,7 +3,7 @@ import {
   CharacterStatus,
 } from "./characters/entities/character-entity";
 
-export const characters = [
+const characters = [
   {
     id: 1,
     name: "Rick Sanchez",
@@ -50,3 +50,5 @@ export const characters = [
     created: "2017-11-04T18:50:21.651Z",
   },
 ];
+
+export default characters;
