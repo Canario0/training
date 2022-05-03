@@ -21,7 +21,7 @@ export function getCharacter(characterRepository: CharacterRepository) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const id = Number(req.params.id);
     if (Number.isNaN(id)) {
-      next(new AppError(httpStatus.NOT_FOUND, "Hey! You must provide an id"));
+      next(new AppError(httpStatus.BAD_REQUEST, "Hey! You must provide an id"));
     } else {
       try {
         const character = await characterRepository.getCharacter(id);
