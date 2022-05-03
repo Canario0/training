@@ -2,7 +2,7 @@ import { DataSource } from "typeorm";
 import { TypeCharacter } from "./characters/entities/character-entity";
 import { TypeLocation } from "./characters/entities/location-entity";
 import { TypeOrigin } from "./characters/entities/origin-entity";
-import { characters } from "./charactersDemo";
+import characters from "./charactersDemo";
 
 export const dataSource = new DataSource({
   type: "postgres",

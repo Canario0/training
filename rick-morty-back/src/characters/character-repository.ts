@@ -1,4 +1,4 @@
-import { DataSource } from "typeorm";
+import { DataSource, Repository } from "typeorm";
 import { Character, TypeCharacter } from "./entities/character-entity";
 
 export interface CharacterRepository {
@@ -13,14 +13,16 @@ export class TypeCharacterRepository implements CharacterRepository {
     this.appDataSource = appDataSource;
   }
 
+  private getRepository(): Repository<TypeCharacter> {
+    return this.appDataSource.getRepository(TypeCharacter);
+  }
+
   async getAllCharacters(name?: string): Promise<Character[]> {
-    const characters = await this.appDataSource
-      .getRepository(TypeCharacter)
-      .find({
-        where: {
-          name,
-        },
-      });
+    const characters = await this.getRepository().find({
+      where: {
+        name,
+      },
+    });
     if (!characters.length) {
       throw new Error("Characters not found");
     }
@@ -28,9 +30,7 @@ export class TypeCharacterRepository implements CharacterRepository {
   }
 
   async getCharacter(id: number): Promise<Character> {
-    const character = await this.appDataSource
-      .getRepository(TypeCharacter)
-      .findOneBy({ id });
+    const character = await this.getRepository().findOneBy({ id });
     if (!character) {
       throw new Error("Character not found");
     }
