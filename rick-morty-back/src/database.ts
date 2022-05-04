@@ -3,8 +3,8 @@ import { TypeCharacter } from "./characters/entities/character-entity";
 import { TypeLocation } from "./characters/entities/location-entity";
 import { TypeOrigin } from "./characters/entities/origin-entity";
 import { TypeUser } from "./users/user-entity";
-import characters from "./charactersDemo";
-import users from "./userDemo";
+import characters from "./characters/character-demo";
+import users from "./users/user-demo";
 
 export const dataSource = new DataSource({
   type: "postgres",

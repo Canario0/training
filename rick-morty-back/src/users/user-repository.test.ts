@@ -2,14 +2,13 @@ import { createMock } from "ts-auto-mock";
 import { On, method } from "ts-auto-mock/extension";
 import { DataSource, Repository } from "typeorm";
 import { TypeUserRepository } from "./user-repository";
-import { TypeUser, User } from "./user-entity";
-import { syncHashPassword } from "../utils/crypt";
+import { TypeUser } from "./user-entity";
+import users from "./user-demo";
 
 describe("TypeUserRepository test suit", () => {
   let findMock: jest.Mock;
   let findOneByMock: jest.Mock;
   let userRepository: TypeUserRepository;
-  let users: User[];
   beforeAll(() => {
     const datasourceMock: DataSource = createMock<DataSource>();
     const repository = createMock<Repository<TypeUser>>();
@@ -19,18 +18,6 @@ describe("TypeUserRepository test suit", () => {
     findMock = On(repository).get(method("find")) as jest.Mock;
     findOneByMock = On(repository).get(method("findOneBy")) as jest.Mock;
     userRepository = new TypeUserRepository(datasourceMock);
-    users = [
-      {
-        id: 1,
-        name: "Demo 1",
-        password: syncHashPassword("Password 1"),
-      },
-      {
-        id: 1,
-        name: "Demo 2",
-        password: syncHashPassword("Password 2"),
-      },
-    ];
   });
 
   beforeEach(() => {

@@ -2,18 +2,13 @@ import { createMock } from "ts-auto-mock";
 import { On, method } from "ts-auto-mock/extension";
 import { DataSource, Repository } from "typeorm";
 import { TypeCharacterRepository } from "./character-repository";
-import {
-  Character,
-  CharacterGender,
-  CharacterStatus,
-  TypeCharacter,
-} from "./entities/character-entity";
+import { TypeCharacter } from "./entities/character-entity";
+import characters from "./character-demo";
 
 describe("TypeCharacterRepository test suit", () => {
   let findMock: jest.Mock;
   let findOneByMock: jest.Mock;
   let characterRepository: TypeCharacterRepository;
-  let characters: Character[];
   beforeAll(() => {
     const datasourceMock: DataSource = createMock<DataSource>();
     const repository = createMock<Repository<TypeCharacter>>();
@@ -23,53 +18,6 @@ describe("TypeCharacterRepository test suit", () => {
     findMock = On(repository).get(method("find")) as jest.Mock;
     findOneByMock = On(repository).get(method("findOneBy")) as jest.Mock;
     characterRepository = new TypeCharacterRepository(datasourceMock);
-    characters = [
-      {
-        id: 1,
-        name: "Rick Sanchez",
-        status: CharacterStatus.Alive,
-        species: "Human",
-        type: "",
-        gender: CharacterGender.Male,
-        origin: {
-          name: "Earth (C-137)",
-          url: "https://rickandmortyapi.com/api/location/1",
-        },
-        location: {
-          name: "Citadel of Ricks",
-          url: "https://rickandmortyapi.com/api/location/3",
-        },
-        image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-        episode: [
-          "https://rickandmortyapi.com/api/episode/1",
-          "https://rickandmortyapi.com/api/episode/2",
-          "https://rickandmortyapi.com/api/episode/3",
-          "https://rickandmortyapi.com/api/episode/51",
-        ],
-        url: "https://rickandmortyapi.com/api/character/1",
-        created: "2017-11-04T18:48:46.250Z",
-      },
-      {
-        id: 2,
-        name: "Morty Smith",
-        status: CharacterStatus.Alive,
-        species: "Human",
-        type: "",
-        gender: CharacterGender.Male,
-        origin: {
-          name: "unknown",
-          url: "",
-        },
-        location: {
-          name: "Citadel of Ricks",
-          url: "https://rickandmortyapi.com/api/location/3",
-        },
-        image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-        episode: ["https://rickandmortyapi.com/api/episode/1"],
-        url: "https://rickandmortyapi.com/api/character/2",
-        created: "2017-11-04T18:50:21.651Z",
-      },
-    ];
   });
 
   beforeEach(() => {

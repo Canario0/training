@@ -1,7 +1,4 @@
-import {
-  CharacterGender,
-  CharacterStatus,
-} from "./characters/entities/character-entity";
+import { CharacterGender, CharacterStatus } from "./entities/character-entity";
 
 const characters = [
   {

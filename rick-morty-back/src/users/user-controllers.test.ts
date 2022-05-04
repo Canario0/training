@@ -1,29 +1,15 @@
 import httpStatus from "http-status-codes";
 import { getMockReq, getMockRes } from "@jest-mock/express";
 import { getAllUsers, getUser } from "./user-controllers";
-import { User } from "./user-entity";
 import AppError from "../utils/exceptions";
-import { syncHashPassword } from "../utils/crypt";
+import users from "./user-demo";
 
 describe("User controllers test suit", () => {
   let getAllUsersRepositoryMock: jest.Mock;
   let getUserRepositoryMock: jest.Mock;
-  let users: User[];
   beforeAll(() => {
     getAllUsersRepositoryMock = jest.fn();
     getUserRepositoryMock = jest.fn();
-    users = [
-      {
-        id: 1,
-        name: "Demo 1",
-        password: syncHashPassword("Password 1"),
-      },
-      {
-        id: 1,
-        name: "Demo 2",
-        password: syncHashPassword("Password 2"),
-      },
-    ];
   });
 
   beforeEach(() => {
