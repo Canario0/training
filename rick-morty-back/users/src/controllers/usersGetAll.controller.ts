@@ -7,7 +7,7 @@ import { UserRepository } from "../repositories/user.repository";
 export default class UsersGetAllController implements Controller {
 	public constructor(private userRepository: UserRepository) {}
 
-	public async run(ctx: Context<{ name: string }>) {
+	public async run(ctx: Context<{ name?: string }>) {
 		const { name } = ctx.params;
 		try {
 			const user = await this.userRepository.getAllUsers(name as string);
