@@ -1,0 +1,4 @@
+services:
+
+  App.controller.UsersGetAllController:
+    class: ../../controllers/usersGetAll.controller

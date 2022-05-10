@@ -4,7 +4,7 @@
   "description": "My Moleculer-based microservices project",
   "scripts": {
     "build": "tsc --build tsconfig.json",
-    "dev": "ts-node ./node_modules/moleculer/bin/moleculer-runner.js --hot --repl --config moleculer.config.ts services/**/*.service.ts",
+    "dev": "ts-node ./node_modules/moleculer/bin/moleculer-runner.js --hot --repl --config src/moleculer.config.ts src/services/**/*.service.ts",
     "start": "moleculer-runner --config dist/moleculer.config.js",
     "cli": "moleculer connect ",
     "ci": "jest --watch",
@@ -32,15 +32,18 @@
     "ts-node": "^8.8.1"
   },
   "dependencies": {
-    "moleculer-web": "^0.9.0",
-    "moleculer-db": "^0.8.4",
-    "moleculer-db-adapter-mongo": "^0.4.7",
-    "moleculer": "^0.14.0",
-    "typescript": "^3.8.3",
     "@types/jest": "^25.1.4",
     "@types/mkdirp": "^1.0.0",
-    "@types/node": "^13.9.8"
-},
+    "@types/node": "^13.9.8",
+    "http-status-codes": "^2.2.0",
+    "moleculer": "^0.14.0",
+    "moleculer-db": "^0.8.4",
+    "moleculer-db-adapter-mongo": "^0.4.7",
+    "moleculer-web": "^0.9.0",
+    "node-dependency-injection": "^3.0.0-alpha.3",
+    "typeorm": "^0.3.6",
+    "typescript": "^3.8.3"
+  },
   "engines": {
     "node": ">= 10.x.x"
   },
