@@ -7,17 +7,9 @@ export interface UserRepository {
 }
 
 export class TypeUserRepository implements UserRepository {
-	private appDataSource: DataSource;
+	public constructor(private appDataSource: DataSource) {}
 
-	constructor(appDataSource: DataSource) {
-		this.appDataSource = appDataSource;
-	}
-
-	private getRepository(): Repository<TypeUser> {
-		return this.appDataSource.getRepository(TypeUser);
-	}
-
-	async getAllUsers(name?: string): Promise<User[]> {
+	public async getAllUsers(name?: string): Promise<User[]> {
 		const users = await this.getRepository().find({
 			where: {
 				name,
@@ -29,11 +21,15 @@ export class TypeUserRepository implements UserRepository {
 		return users;
 	}
 
-	async getUser(id: number): Promise<User> {
+	public async getUser(id: number): Promise<User> {
 		const user = await this.getRepository().findOneBy({ id });
 		if (!user) {
 			throw new Error("User not found");
 		}
 		return user;
+	}
+
+	private getRepository(): Repository<TypeUser> {
+		return this.appDataSource.getRepository(TypeUser);
 	}
 }
