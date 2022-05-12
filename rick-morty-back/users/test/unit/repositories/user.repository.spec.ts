@@ -1,7 +1,7 @@
 import { createMock } from "ts-auto-mock";
 import { On, method } from "ts-auto-mock/extension";
 import { DataSource, Repository } from "typeorm";
-import { TypeUserRepository } from "../../../src/repositories/user.repository";
+import TypeUserRepository from "../../../src/repositories/user.repository";
 import { TypeUser } from "../../../src/entities/user.entity";
 import users from "../../../src/data/users.demo";
 
@@ -17,7 +17,9 @@ describe("TypeUserRepository test suit", () => {
 		).mockReturnValue(repository);
 		findMock = On(repository).get(method("find")) as jest.Mock;
 		findOneByMock = On(repository).get(method("findOneBy")) as jest.Mock;
-		userRepository = new TypeUserRepository(datasourceMock);
+		userRepository = new TypeUserRepository(
+			Promise.resolve(datasourceMock)
+		);
 	});
 
 	beforeEach(() => {

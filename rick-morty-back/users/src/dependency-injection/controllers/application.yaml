@@ -2,3 +2,7 @@ services:
 
   App.controller.UsersGetAllController:
     class: ../../controllers/usersGetAll.controller
+    arguments: ['@Repository.UserRepository']
+  App.controller.UsersGetDetailsController:
+    class: ../../controllers/userGetDetails.controller
+    arguments: ['@Repository.UserRepository']

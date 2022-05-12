@@ -1,16 +1,13 @@
 import { DataSource, Repository } from "typeorm";
 import { User, TypeUser } from "../entities/user.entity";
+import UserRepository from "./types/user.repository.type";
 
-export interface UserRepository {
-	getAllUsers(name?: string): Promise<User[]>;
-	getUser(id: number): Promise<User>;
-}
-
-export class TypeUserRepository implements UserRepository {
-	public constructor(private appDataSource: DataSource) {}
+export default class TypeUserRepository implements UserRepository {
+	public constructor(private client: Promise<DataSource>) {}
 
 	public async getAllUsers(name?: string): Promise<User[]> {
-		const users = await this.getRepository().find({
+		const repository = await this.getRepository();
+		const users = await repository.find({
 			where: {
 				name,
 			},
@@ -22,14 +19,15 @@ export class TypeUserRepository implements UserRepository {
 	}
 
 	public async getUser(id: number): Promise<User> {
-		const user = await this.getRepository().findOneBy({ id });
+		const repository = await this.getRepository();
+		const user = await repository.findOneBy({ id });
 		if (!user) {
 			throw new Error("User not found");
 		}
 		return user;
 	}
 
-	private getRepository(): Repository<TypeUser> {
-		return this.appDataSource.getRepository(TypeUser);
+	private async getRepository(): Promise<Repository<TypeUser>> {
+		return (await this.client).getRepository(TypeUser);
 	}
 }

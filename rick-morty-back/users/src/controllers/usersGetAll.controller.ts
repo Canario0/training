@@ -2,7 +2,7 @@ import { Context } from "moleculer";
 import { Errors } from "moleculer";
 import httpStatus from "http-status-codes";
 import Controller from "../shared/controller";
-import { UserRepository } from "../repositories/user.repository";
+import UserRepository from "../repositories/types/user.repository.type";
 
 export default class UsersGetAllController implements Controller {
 	public constructor(private userRepository: UserRepository) {}

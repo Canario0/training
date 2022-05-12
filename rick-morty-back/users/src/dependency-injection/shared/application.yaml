@@ -1,0 +1,12 @@
+services:
+  Shared.PostgresConfig:
+    factory:
+      class: ../../config/postgresConfigFactory
+      method: 'createConfig'
+
+  Shared.ConnectionManager:
+    factory:
+      class: ../../shared/postgresClientFactory
+      method: 'createClient'
+    arguments: ['@Shared.PostgresConfig']
+

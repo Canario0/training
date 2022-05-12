@@ -1,9 +1,18 @@
-import { Service, ServiceBroker } from "moleculer";
+import { Context, Service, ServiceBroker } from "moleculer";
+import { DataSource } from "typeorm";
+import users from "../data/users.demo";
 import container from "../dependency-injection";
+import { TypeUser } from "../entities/user.entity";
 
 export default class ProductsService extends Service {
 	public constructor(public broker: ServiceBroker) {
 		super(broker);
+		const usersGetAllController = container.get(
+			"App.controller.UsersGetAllController"
+		);
+		const usersGetDetailsController = container.get(
+			"App.controller.UsersGetDetailsController"
+		);
 		this.parseServiceSchema({
 			name: "users",
 			version: 1,
@@ -15,31 +24,25 @@ export default class ProductsService extends Service {
 					params: {
 						name: { type: "string", optional: true },
 					},
-					handler: container.get(
-						"App.controller.UsersGetAllController"
-					).run,
+					handler: (ctx: Context) => usersGetAllController.run(ctx),
+				},
+				getDetail: {
+					rest: "GET /:id",
+					params: {
+						id: { type: "string", optional: false },
+					},
+					handler: (ctx: Context) =>
+						usersGetDetailsController.run(ctx),
 				},
 			},
 			methods: {},
+			started: this.seedDB,
 		});
 	}
-	// private async seedDB() {
-	// 	await this.adapter.insertMany([
-	// 		{
-	// 			name: "Samsung Galaxy S10 Plus",
-	// 			quantity: 10,
-	// 			price: 704,
-	// 		},
-	// 		{
-	// 			name: "iPhone 11 Pro",
-	// 			quantity: 25,
-	// 			price: 999,
-	// 		},
-	// 		{
-	// 			name: "Huawei P30 Pro",
-	// 			quantity: 15,
-	// 			price: 679,
-	// 		},
-	// 	]);
-	// }
+	private async seedDB() {
+		const client = (await container.get(
+			"Shared.ConnectionManager"
+		)) as DataSource;
+		client.getRepository(TypeUser).save(users);
+	}
 }

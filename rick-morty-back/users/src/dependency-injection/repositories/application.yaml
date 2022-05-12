@@ -1,0 +1,5 @@
+services:
+
+  Repository.UserRepository:
+    class: ../../repositories/user.repository
+    arguments: ['@Shared.ConnectionManager']
